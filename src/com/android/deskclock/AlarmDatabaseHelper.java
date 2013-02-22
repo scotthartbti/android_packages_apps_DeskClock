@@ -32,7 +32,7 @@ import android.net.Uri;
 class AlarmDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "alarms.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
     public AlarmDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -49,31 +49,31 @@ class AlarmDatabaseHelper extends SQLiteOpenHelper {
                    "enabled INTEGER, " +
                    "vibrate INTEGER, " +
                    "message TEXT, " +
-                   "alert TEXT);");
+                   "alert TEXT, " +
+                   "incvol INTEGER);");
 
         // insert default alarms
         String insertMe = "INSERT INTO alarms " +
                 "(hour, minutes, daysofweek, alarmtime, enabled, vibrate, " +
-                " message, alert) VALUES ";
-        db.execSQL(insertMe + "(8, 30, 31, 0, 0, 1, '', '');");
-        db.execSQL(insertMe + "(9, 00, 96, 0, 0, 1, '', '');");
+                " message, alert, incvol) VALUES ";
+        db.execSQL(insertMe + "(8, 30, 31, 0, 0, 1, '', '', 0);");
+        db.execSQL(insertMe + "(9, 00, 96, 0, 0, 1, '', '', 0);");
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion,
-            int currentVersion) {
-        if (Log.LOGV) Log.v(
-                "Upgrading alarms database from version " +
-                oldVersion + " to " + currentVersion +
-                ", which will destroy all old data");
-        db.execSQL("DROP TABLE IF EXISTS alarms");
-        onCreate(db);
-    }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int currentVersion) {
+        if (Log.LOGV) Log.v("Upgrading alarms database from version " + oldVersion + " to "
+                + currentVersion);
 
-    @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion,
-            int currentVersion) {
-        onUpgrade(db, oldVersion, currentVersion);
+        int upgradeVersion = oldVersion;
+
+        if (upgradeVersion == 5) {
+            db.execSQL("ALTER TABLE alarms ADD incvol INTEGER;");
+            db.execSQL("UPDATE alarms SET incvol=0;");
+            upgradeVersion = 6;
+        }
+
+        if (Log.LOGV) Log.v("Alarms database upgrade done.");
     }
 
     Uri commonInsert(ContentValues values) {

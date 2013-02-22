@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  Copyright (C) 2007 The Android Open Source Project
+<!-- Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
+-->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
@@ -147,6 +147,13 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Hora: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Duración de las vueltas:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Fase <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="stopwatch_format_set">
+    <item msgid="7855304148648938406">"<xliff:g id="M">%2$d</xliff:g> min <xliff:g id="S">%3$02d</xliff:g> s <xliff:g id="D">%4$02d</xliff:g>"</item>
+    <item msgid="3964356050933061913">"<xliff:g id="M">%2$02d</xliff:g> min <xliff:g id="S">%3$02d</xliff:g> s <xliff:g id="D">%4$02d</xliff:g>"</item>
+    <item msgid="4906928997138522728">"<xliff:g id="H">%1$d</xliff:g> h <xliff:g id="M">%2$02d</xliff:g> min <xliff:g id="S">%3$02d</xliff:g> s <xliff:g id="D">%4$02d</xliff:g>"</item>
+    <item msgid="1167529664702951052">"<xliff:g id="H">%1$02d</xliff:g> h <xliff:g id="M">%2$02d</xliff:g> min <xliff:g id="S">%3$02d</xliff:g> s <xliff:g id="D">%4$02d</xliff:g>"</item>
+    <item msgid="4383974684898411623">"<xliff:g id="H">%1$03d</xliff:g> h <xliff:g id="M">%2$02d</xliff:g> min <xliff:g id="S">%3$02d</xliff:g> s <xliff:g id="D">%4$02d</xliff:g>"</item>
+  </string-array>
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 hora"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> horas"</item>
@@ -342,6 +349,7 @@
     <string name="stopwatch_settings">CRONÓMETRO</string>
     <string name="keep_display_on_stopwatch">Mantener pantalla encendida</string>
     <string name="keep_display_on_stopwatch_summary">La pantalla permanecerá encendida mientras el cronómetro esté en marcha</string>
+    <string name="alarm_increasing_volume">Volumen ascendente</string>
 
     <!-- CYANOGENMOD ADDITIONS END -->
 </resources>
