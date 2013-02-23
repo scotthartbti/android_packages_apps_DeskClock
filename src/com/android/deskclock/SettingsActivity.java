@@ -17,6 +17,8 @@
 package com.android.deskclock;
 
 import android.app.ActionBar;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.media.AudioManager;
