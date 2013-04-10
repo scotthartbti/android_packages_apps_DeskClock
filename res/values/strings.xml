@@ -831,5 +831,9 @@
     <string name="clock_alarm_color_title">Alarm color</string>
     <!-- Label for the digital clock alarm color settings summary -->
     <string name="clock_alarm_color_summary">Set the alarm color of the digital clock widget.</string>
+
+    <!-- Empty list message -->
+    <string name="no_alarms">No alarms set</string>
+
 </resources>
 
