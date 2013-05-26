@@ -901,4 +901,8 @@
         <item>@null</item>
         <item>@null</item>
     </array>
+    <string-array  name="bs_clock_backgrounds_drawable"  translatable="false">
+        <item>appwidget_bs_color_clock_dial</item>
+        <item>appwidget_bs_black_clock_dial</item>
+    </string-array>
 </resources>

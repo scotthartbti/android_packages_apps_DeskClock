@@ -832,6 +832,13 @@
     <!-- Label for the digital clock alarm color settings summary -->
     <string name="clock_alarm_color_summary">Set the alarm color of the digital clock widget.</string>
 
+    <!-- Label for beanstalk clock gadget, shown in list of all gadgets -->
+    <string name="analog_bs_gadget">BeanStalk clock</string>
+    
+    <!-- Appears at the top of the beanstalk Clock Picker screen: Tell user to
+         select a clock Dial to display -->
+    <string name="clock_dial_instructions">Choose a clock dial</string>
+
     <!-- Empty list message -->
     <string name="no_alarms">No alarms set</string>
 
