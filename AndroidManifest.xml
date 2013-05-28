@@ -175,7 +175,7 @@
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/analog_bs_appwidget" />
         </receiver>
 
-        <activity android:name="com.android.alarmclock.AnalogAOKPAppWidgetConfigure">
+        <activity android:name="com.android.alarmclock.AnalogBSAppWidgetConfigure">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>

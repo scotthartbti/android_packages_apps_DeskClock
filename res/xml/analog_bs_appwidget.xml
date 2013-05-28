@@ -18,8 +18,9 @@
     android:minWidth="110dip"
     android:minHeight="110dip"
     android:updatePeriodMillis="0"
-    android:previewImage="@drawable/preview_bs"
+    android:previewImage="@drawable/preview_beanstalk"
     android:initialLayout="@layout/analog_bs_appwidget"
     android:configure="com.android.alarmclock.AnalogBSAppWidgetConfigure"
+    android:widgetCategory="keyguard|home_screen"
     >
 </appwidget-provider>
