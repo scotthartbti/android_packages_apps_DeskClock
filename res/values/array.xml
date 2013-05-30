@@ -904,5 +904,10 @@
     <string-array  name="bs_clock_backgrounds_drawable"  translatable="false">
         <item>appwidget_bs_color_clock_dial</item>
         <item>appwidget_bs_black_clock_dial</item>
+        <item>appwidget_bs_blue_clock_dial</item>
+        <item>appwidget_bs_gray_clock_dial</item>
+        <item>appwidget_bs_green_clock_dial</item>
+        <item>appwidget_bs_red_clock_dial</item>
+        <item>appwidget_bs_yellow_clock_dial</item>
     </string-array>
 </resources>
