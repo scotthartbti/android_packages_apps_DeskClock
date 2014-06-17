@@ -39,6 +39,7 @@ import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -122,6 +123,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
     private ProfileManager mProfileManager;
     private ProfilesObserver mProfileObserver;
+    private AudioManager mAudioManager;
 
     private final Uri PROFILES_SETTINGS_URI =
         Settings.System.getUriFor(Settings.System.SYSTEM_PROFILES_ENABLED);
@@ -467,6 +469,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
         mAlarmsList.setVerticalScrollBarEnabled(true);
         mAlarmsList.setOnCreateContextMenuListener(this);
 
+        mAudioManager = (AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE);
+
         if (mUndoShowing) {
             showUndoBar();
         }
@@ -507,6 +511,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             // Remove the SCROLL_TO_ALARM extra now that we've processed it.
             intent.removeExtra(SCROLL_TO_ALARM_INTENT_EXTRA);
+        } else {
+            // If alarm stream volume is 0, show a warning
+            if (mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM) == 0) {
+                showSilentWarningBar();
+            }
+
         }
 
         // Make sure to use the child FragmentManager. We have to use that one for the
@@ -548,7 +558,20 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 mDeletedAlarm = null;
                 mUndoShowing = false;
             }
-        }, 0, getResources().getString(R.string.alarm_deleted), true, R.string.alarm_undo, true);
+        }, 0, getResources().getString(R.string.alarm_deleted), true, 0, R.string.alarm_undo, true);
+    }
+
+    private void showSilentWarningBar() {
+        mUndoFrame.setVisibility(View.VISIBLE);
+        mUndoBar.show(new ActionableToastBar.ActionClickedListener() {
+            @Override
+            public void onActionClicked() {
+                mAudioManager.adjustStreamVolume(AudioManager.STREAM_ALARM,
+                        AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
+                mUndoShowing = false;
+            }
+        }, 0, getResources().getString(R.string.warn_silent_alarm_title), true,
+                R.drawable.ic_alarm, 0, true);
     }
 
     @Override
@@ -1414,10 +1437,16 @@ public class AlarmClockFragment extends DeskClockFragment implements
             });
 
             final String ringtone;
+            final String ringtitle;
             if (Alarm.NO_RINGTONE_URI.equals(alarm.alert)) {
                 ringtone = mContext.getResources().getString(R.string.silent_alarm_summary);
             } else {
-                ringtone = getRingToneTitle(alarm.alert);
+                ringtitle = getRingToneTitle(alarm.alert);
+                if (ringtitle != null) {
+                    ringtone = ringtitle;
+                } else {
+                    ringtone = mContext.getResources().getString(R.string.silent_alarm_summary);
+                }
             }
             itemHolder.ringtone.setText(ringtone);
             itemHolder.ringtone.setContentDescription(
@@ -1533,7 +1562,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 } else {
                     // This is slow because a media player is created during Ringtone object creation.
                     Ringtone ringTone = RingtoneManager.getRingtone(mContext, uri);
-                    title = ringTone.getTitle(mContext);
+                    if (ringTone != null) {
+                        title = ringTone.getTitle(mContext);
+                    }
                 }
                 if (title != null) {
                     mRingtoneTitleCache.putString(uri.toString(), title);
