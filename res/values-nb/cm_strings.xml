@@ -56,4 +56,5 @@
   <string name="alarm_select_ringtone">Ringetone</string>
   <string name="alarm_select_external">Musikk</string>
   <string name="ringtone_default">"Standard ringetone"</string>
+  <string name="take_persistent_grant_uri_permission_failed_msg">Klarte ikke å ta over riktige tillatelser for ringetone</string>
 </resources>

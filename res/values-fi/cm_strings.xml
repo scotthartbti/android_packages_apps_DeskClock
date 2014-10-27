@@ -56,4 +56,5 @@
   <string name="alarm_select_ringtone">Soittoääni</string>
   <string name="alarm_select_external">Musiikki</string>
   <string name="ringtone_default">"Oletussoittoääni"</string>
+  <string name="take_persistent_grant_uri_permission_failed_msg">Pysyvän käyttöoikeuden ottaminen soittoäänelle epäonnistui</string>
 </resources>
