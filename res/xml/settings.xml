@@ -86,7 +86,7 @@
             android:entryValues="@array/action_summary_values"
             android:defaultValue="0"/>
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="show_status_bar_icon"
             android:title="@string/show_status_bar_icon_title"
             android:summary="@string/show_status_bar_icon_summary"
