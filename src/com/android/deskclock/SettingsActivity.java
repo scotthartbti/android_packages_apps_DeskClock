@@ -17,6 +17,8 @@
 package com.android.deskclock;
 
 import android.app.ActionBar;
+import android.app.AlarmManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -81,7 +83,7 @@ public class SettingsActivity extends PreferenceActivity
     private static CharSequence[][] mTimezones;
     private static Locale mLocale;
     private long mTime;
-
+    private CheckBoxPreference mAlarmIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +108,10 @@ public class SettingsActivity extends PreferenceActivity
         listPref.setEntries(mTimezones[1]);
         listPref.setSummary(listPref.getEntry());
         listPref.setOnPreferenceChangeListener(this);
+
+        mAlarmIcon = (CheckBoxPreference) findPreference(KEY_SHOW_STATUS_BAR_ICON);
+        mAlarmIcon.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.SHOW_ALARM_ICON, 1) == 1);
     }
 
     @Override
@@ -187,16 +193,17 @@ public class SettingsActivity extends PreferenceActivity
             final ListPreference listPref = (ListPreference) pref;
             final int idx = listPref.findIndexOfValue((String) newValue);
             listPref.setSummary(listPref.getEntries()[idx]);
-        } else if (KEY_SHOW_STATUS_BAR_ICON.equals(pref.getKey())) {
-            // Check if any alarms are active. If yes and
-            // we allow showing the alarm icon, the icon will be shown.
-            AlarmNotifications.updateStatusBarIcon(getApplicationContext(), (Boolean) newValue);
         } else if (KEY_FLIP_ACTION.equals(pref.getKey())) {
             final ListPreference listPref = (ListPreference) pref;
             updateActionSummary(listPref, (String) newValue, R.string.flip_action_summary);
         } else if (KEY_SHAKE_ACTION.equals(pref.getKey())) {
             final ListPreference listPref = (ListPreference) pref;
             updateActionSummary(listPref, (String) newValue, R.string.shake_action_summary);
+        } else if (KEY_SHOW_STATUS_BAR_ICON.equals(pref.getKey())) {
+            // Check if any alarms are active. If yes and
+            // we allow showing the alarm icon, the icon will be shown.
+            Settings.System.putInt(getContentResolver(), Settings.System.SHOW_ALARM_ICON,
+                    (Boolean) newValue ? 1 : 0);
         }
         return true;
     }
