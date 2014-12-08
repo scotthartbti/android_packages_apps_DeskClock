@@ -83,7 +83,7 @@ public class SettingsActivity extends PreferenceActivity
     private static CharSequence[][] mTimezones;
     private static Locale mLocale;
     private long mTime;
-    private CheckBoxPreference mAlarmIcon;
+    private SwitchPreference mAlarmIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +109,7 @@ public class SettingsActivity extends PreferenceActivity
         listPref.setSummary(listPref.getEntry());
         listPref.setOnPreferenceChangeListener(this);
 
-        mAlarmIcon = (CheckBoxPreference) findPreference(KEY_SHOW_STATUS_BAR_ICON);
+        mAlarmIcon = (SwitchPreference) findPreference(KEY_SHOW_STATUS_BAR_ICON);
         mAlarmIcon.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.SHOW_ALARM_ICON, 1) == 1);
     }
